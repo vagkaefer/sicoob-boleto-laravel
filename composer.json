@@ -1,0 +1,36 @@
+{
+  "name": "vagkaefer/sicoob-boleto-laravel",
+  "description": "A laravel package to work with Sicoob Bills (Boletos)",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vagner Kaefer",
+      "email": "vagner@kaefer.eng.br"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "VagKaefer\\SicoobBoleto\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "VagKaefer\\SicoobBoleto\\Tests\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "VagKaefer\\SicoobBoleto\\SicoobBoletoServiceProvider"
+      ],
+      "aliases": {
+        "SicoobBoleto": "VagKaefer\\SicoobBoleto\\Facades\\SicoobBoleto"
+      }
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "orchestra/testbench": "^7.0"
+  }
+}
