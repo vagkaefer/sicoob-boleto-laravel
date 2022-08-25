@@ -1,3 +1,5 @@
+<h1 style="color:red">ESSE PACOTE ESTÁ EM ALPHA, ou seja, NÃO UTILIZE ELE AINDA, AGUARDE A VERSÃO 1.0 Beta</h1>
+
 # Sicoob boleto laravel
 
 Um pacote para integrar seus sistema Laravel com a API de Cobrança Bancária V2 do Sicoob.
@@ -41,18 +43,19 @@ Versão do PHP: 8.1 ou superior
 
 #### Disponíveis ####
 
-- Consulta de boletos
-- Inclusão de boletos
+--
 
 #### Em Desenvolvimento ####
 
-- XXXXXX
+- Geração de Token
+- Consulta de boletos
+- Inclusão de boletos
 
 ### Instruções de uso ###
 
 #### Geral ####
 
-XXX
+TODO
 
 As informações completas estão disponíveis na [Wiki](https://github.com/vagkaefer/sicoob-boleto-laravel/wiki) desse repositório
 
