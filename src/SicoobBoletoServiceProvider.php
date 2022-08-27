@@ -13,7 +13,7 @@ class SicoobBoletoServiceProvider extends ServiceProvider
             return new SicoobBoleto();
         });
 
-        $this->mergeConfigFrom(__DIR__ . '/config/config.php', 'sicoob-boleto');
+        $this->mergeConfigFrom(__DIR__ . '/config/sicoob-boleto.php', 'sicoob-boleto');
     }
 
     public function boot()
@@ -26,7 +26,7 @@ class SicoobBoletoServiceProvider extends ServiceProvider
             ]);
 
             $this->publishes([
-                __DIR__ . '/config/config.php' => config_path('sicoob-boleto.php'),
+                __DIR__ . '/config/sicoob-boleto.php' => config_path('sicoob-boleto.php'),
             ], 'config');
         }
 

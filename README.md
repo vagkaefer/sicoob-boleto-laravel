@@ -43,11 +43,10 @@ Versão do PHP: 8.1 ou superior
 
 #### Disponíveis ####
 
---
+- Geração de Token
 
 #### Em Desenvolvimento ####
 
-- Geração de Token
 - Consulta de boletos
 - Inclusão de boletos
 
@@ -59,11 +58,19 @@ TODO
 
 As informações completas estão disponíveis na [Wiki](https://github.com/vagkaefer/sicoob-boleto-laravel/wiki) desse repositório
 
-#### Arquivo de configuração #### 
+#### Configuração #### 
 
-Gere o arquivo de configuração para alterar parâmetros
+Publique o arquivo de configuração
 
-php artisan vendor:publish --provider="VagKaefer\SicoobBoleto\SicoobBoletoServiceProvider" --tag="config"
+    php artisan vendor:publish --provider="VagKaefer\SicoobBoleto\SicoobBoletoServiceProvider" --tag="config"
+
+Configure seus dados no arquivo .env (Recomendado) ou no arquivo config/sicoob-boleto.php
+
+    SB_CLIENT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+
+    SB_CERTIFICATE_FILE=/certificates/CPF_CNPJ.pfx
+
+    SB_CERTIFICATE_PASSWORD=SenhaDoCertificado
 
 #### Comandos disponíveis (php artisan) #### 
 
