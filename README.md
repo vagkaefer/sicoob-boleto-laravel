@@ -74,4 +74,4 @@ Configure seus dados no arquivo .env (Recomendado) ou no arquivo config/sicoob-b
 
 #### Comandos disponíveis (php artisan) #### 
 
-- **sicoob-boletos:update-status**  Atualiza os status dos boletos
+- **sicoob-boletos:update-status**  Atualiza os status dos boletos em aberto

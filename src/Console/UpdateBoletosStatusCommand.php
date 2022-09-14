@@ -9,7 +9,7 @@ class UpdateBoletosStatusCommand extends Command
 {
   protected $signature = 'sicoob-boletos:update-status';
 
-  protected $description = 'Atualiza os status dos boletos';
+  protected $description = 'Atualiza os status dos boletos em aberto';
 
   public function handle()
   {

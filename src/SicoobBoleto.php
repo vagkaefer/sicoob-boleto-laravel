@@ -9,27 +9,51 @@ use Illuminate\Support\Facades\Cache;
 class SicoobBoleto
 {
     protected $token;
-
-    protected $clientWithCert;
+    protected $numeroContrato;
+    protected $authClientWithCert;
+    protected $apiClientWithCert;
 
     public function __construct()
     {
         $this->token = Cache::get('sicoob-boleto-token');
 
-        $this->clientWithCert = new Client(
+        $this->authClientWithCert = new Client(
             [
                 'base_uri' => config('sicoob-boleto.sb_auth_url'),
                 'cert'     => [config('sicoob-boleto.sb_certificate_file'), config('sicoob-boleto.sb_certificate_password')],
                 'curl'     => [CURLOPT_SSLCERTTYPE => 'P12'], // to define it's a PFX key
+                'headers' => [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'Accept'     => 'application/json',
+                    'Accept-Encoding'      => 'gzip, deflate, br',
+                    'Connection'     => 'keep-alive',
+                ]
             ]
         );
 
         if ($this->token == null) {
             $this->request_token();
         }
+
+        $this->numeroContrato = config('sicoob-boleto.sb_numero_contrato');
+
+        $this->apiClientWithCert = new Client(
+            [
+                'base_uri' => config('sicoob-boleto.sb_api_url'),
+                'cert'     => [config('sicoob-boleto.sb_certificate_file'), config('sicoob-boleto.sb_certificate_password')],
+                'curl'     => [CURLOPT_SSLCERTTYPE => 'P12'], // to define it's a PFX key
+                'headers' => [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'Accept'     => 'application/json',
+                    'Accept-Encoding'      => 'gzip, deflate, br',
+                    'Authorization' => $this->token->token_type . ' ' . $this->token->access_token,
+                    'Connection'     => 'keep-alive',
+                ]
+            ]
+        );
     }
 
-    public function save_token($json)
+    private function save_token($json)
     {
 
         $token = (object)[
@@ -41,13 +65,13 @@ class SicoobBoleto
         Cache::put('sicoob-boleto-token', $token, $json['expires_in']);
     }
 
-    public function request_token()
+    private function request_token()
     {
-        // Todo do, make tests and error handling
+        // TODO do, make tests and error handling
 
         try {
 
-            $response = $this->clientWithCert->request('POST', 'auth/realms/cooperado/protocol/openid-connect/token', [
+            $response = $this->authClientWithCert->request('POST', 'auth/realms/cooperado/protocol/openid-connect/token', [
                 'form_params' => [
                     'grant_type' => 'client_credentials',
                     'client_id' => config('sicoob-boleto.sb_client_id'),
@@ -69,12 +93,43 @@ class SicoobBoleto
         }
     }
 
-    public function get_token()
+    private function refresh_token()
     {
-        dd($this->token);
     }
 
-    public function refresh_token()
-    {
+    public function consultarBoleto(
+        string $modalidade = null,
+        string $linhaDigitavel = null,
+        string $codigoBarras = null,
+        string $nossoNumero = null
+    ) {
+
+        if ($modalidade == null) {
+            $modalidade = 1; //Simples com Registro
+        }
+
+        // try {
+        $response = $this->apiClientWithCert->request(
+            'GET',
+            'boletos',
+            [
+                'query' => [
+                    'codigoBarras' => $codigoBarras,
+                    'linhaDigitavel' => $linhaDigitavel,
+                    'modalidade' => $modalidade,
+                    'numeroContrato' => $this->numeroContrato,
+                    'nossoNumero' => $nossoNumero,
+                ]
+            ]
+        );
+
+        $json = json_decode($response->getBody(), true);
+
+        dd($json);
+        // } catch (ClientException $e) {
+        //     // $response = $e->getResponse();
+        //     // echo $response->getBody()->getContents();
+        //     dd($e);
+        // }
     }
 }
