@@ -106,6 +106,9 @@ class SicoobBoleto
 
         if ($modalidade == null) {
             $modalidade = 1; //Simples com Registro
+            // $modalidade = 5; // 5 Carnê de pagamentos
+            // $modalidade = 6; // 6 Indexada
+            // $modalidade = 14; // 14 Cartão de crédito
         }
 
         // try {
@@ -123,13 +126,156 @@ class SicoobBoleto
             ]
         );
 
-        $json = json_decode($response->getBody(), true);
+        return json_decode($response->getBody(), true);
+    }
 
-        dd($json);
-        // } catch (ClientException $e) {
-        //     // $response = $e->getResponse();
-        //     // echo $response->getBody()->getContents();
-        //     dd($e);
-        // }
+    public function translate_especieDocumento($especieDocumento)
+    {
+
+        switch ($especieDocumento) {
+
+            case 'CH':
+                return "Cheque";
+                break;
+
+            case 'DM':
+                return "Duplicata Mercantil";
+                break;
+
+            case 'DMI':
+                return "Duplicata Mercantil Indicação";
+                break;
+
+            case 'DS':
+                return "Duplicata de Serviço";
+                break;
+
+            case 'DSI':
+                return "Duplicata Serviço Indicação";
+                break;
+
+            case 'DR':
+                return "Duplicata Rural";
+                break;
+
+            case 'LC':
+                return "Letra de Câmbio";
+                break;
+
+            case 'NCC':
+                return "Nota de Crédito Comercial";
+                break;
+
+            case 'NCE':
+                return "Nota de Crédito Exportação";
+                break;
+
+            case 'NCI':
+                return "Nota de Crédito Industrial";
+                break;
+
+            case 'NCR':
+                return "Nota de Crédito Rural";
+                break;
+
+            case 'NP':
+                return "Nota Promissória";
+                break;
+
+            case 'NPR':
+                return "Nota Promissória Rural";
+                break;
+
+            case 'TM':
+                return "Triplicata Mercantil";
+                break;
+
+            case 'TS':
+                return "Triplicata de Serviço";
+                break;
+
+            case 'NS':
+                return "Nota de Seguro";
+                break;
+
+            case 'FAT':
+                return "Fatura";
+                break;
+
+            case 'ND':
+                return "Nota de Débito";
+                break;
+
+            case 'RC':
+                return "Recibo";
+                break;
+
+            case 'AP':
+                return "Apólice de Seguro";
+                break;
+
+            case 'ME':
+                return "Mensalidade Escolar";
+                break;
+
+            case 'PC':
+                return "Pagamento de Consórcio";
+                break;
+
+            case 'NF':
+                return "Nota Fiscal";
+                break;
+
+            case 'DD':
+                return "Documento de Dívida";
+                break;
+
+            case 'CC':
+                return "Cartão de Crédito";
+                break;
+
+            case 'BDP':
+                return "Boleto Proposta";
+                break;
+
+            case 'OU':
+                return "Outros";
+                break;
+        }
+    }
+
+    public function translate_tipoDesconto($especieDocumento)
+    {
+
+        switch ($especieDocumento) {
+
+            case 0:
+                return "Sem Desconto";
+                break;
+
+            case 1:
+                return "Valor Fixo Até a Data Informada";
+                break;
+
+            case 2:
+                return "Percentual até a data informada";
+                break;
+
+            case 3:
+                return "Valor por antecipação dia corrido";
+                break;
+
+            case 4:
+                return "Valor por antecipação dia útil";
+                break;
+
+            case 5:
+                return "Percentual por antecipação dia corrido";
+                break;
+
+            case 6:
+                return "Percentual por antecipação dia útil";
+                break;
+        }
     }
 }

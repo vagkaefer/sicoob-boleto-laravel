@@ -32,5 +32,8 @@ class SicoobBoletoServiceProvider extends ServiceProvider
 
         // Import routes
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
+
+        // Migration
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 }
