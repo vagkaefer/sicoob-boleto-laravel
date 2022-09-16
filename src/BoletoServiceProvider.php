@@ -1,16 +1,16 @@
 <?php
 
-namespace VagKaefer\SicoobBoleto;
+namespace VagKaefer\Sicoob;
 
 use Illuminate\Support\ServiceProvider;
-use VagKaefer\SicoobBoleto\Console\UpdateBoletosStatusCommand;
+use VagKaefer\Sicoob\Console\UpdateBoletosStatusCommand;
 
-class SicoobBoletoServiceProvider extends ServiceProvider
+class BoletoServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->bind('sicoob-boleto', function ($app) {
-            return new SicoobBoleto();
+        $this->app->bind('boleto', function ($app) {
+            return new Boleto();
         });
 
         $this->mergeConfigFrom(__DIR__ . '/config/sicoob-boleto.php', 'sicoob-boleto');

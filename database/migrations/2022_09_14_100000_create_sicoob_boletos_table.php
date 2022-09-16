@@ -13,8 +13,11 @@ class CreateSicoobBoletosTable extends Migration
    */
   public function up()
   {
-    Schema::create('boletos_sicoob', function (Blueprint $table) {
-      $table->uuid()->primary();
+    Schema::create('sicoob_boletos', function (Blueprint $table) {
+
+      // $table->id(); //Uncomment if you doesn't use uuid
+      $table->uuid('id')->primary(); //Comment if you doesn't use uuid
+
       $table->integer('numeroContrato')->nullable(); //Número que identifica o contrato do beneficiário.
       $table->integer('modalidade')->nullable(); //úmero que identifica a modalidade do boleto. - 1 SIMPLES COM REGISTRO - 5 CARNÊ DE PAGAMENTOS - 6 INDEXADA - 14 CARTÃO DE CRÉDITO
       $table->integer('numeroContaCorrente')->nullable(); //Número da Conta Corrente para crédito do boleto.
@@ -25,8 +28,8 @@ class CreateSicoobBoletosTable extends Migration
       $table->string('identificacaoBoletoEmpresa')->nullable(); //Destinado para uso da Empresa Cedente para identificação do Boleto
       $table->string('codigoBarras', 44); //Número de código de barras do boleto com 44 posições.
       $table->string('linhaDigitavel', 47); //Número da linha digitável do boleto com 47 posições.
-      $table->integer('identificacaoEmissaoBoleto'); //Identificação de Emissão do Boleto - 1 Banco Emite - 2 Cliente Emite
-      $table->integer('identificacaoDistribuicaoBoleto'); //Identificação de Distribuição do Boleto - 1 Banco Distribui - 2 Cliente Distribui
+      $table->integer('identificacaoEmissaoBoleto')->nullable(); //Identificação de Emissão do Boleto - 1 Banco Emite - 2 Cliente Emite
+      $table->integer('identificacaoDistribuicaoBoleto')->nullable(); //Identificação de Distribuição do Boleto - 1 Banco Distribui - 2 Cliente Distribui
       $table->decimal('valor', 9, 3); //Valor nominal do boleto.
       $table->timestamp('dataVencimento'); //Data de vencimento do boleto.
       $table->timestamp('dataLimitePagamento'); //Data de limite para pagamento do boleto.
@@ -46,9 +49,9 @@ class CreateSicoobBoletosTable extends Migration
       $table->decimal('valorJurosMora', 9, 3)->nullable(); //Valor do Juros de Mora.
       $table->integer('numeroParcela')->nullable(); //Número da parcela.
       $table->boolean('aceite'); //Identificador do aceite do boleto.
-      $table->integer('codigoNegativacao'); //Código de Negativação do Boleto - 2 Negativar Dias Úteis - 3 Não Negativar
+      $table->integer('codigoNegativacao')->nullable(); //Código de Negativação do Boleto - 2 Negativar Dias Úteis - 3 Não Negativar
       $table->integer('numeroDiasNegativacao')->nullable(); //Número de Dias para Negativação do Boleto
-      $table->integer('codigoProtesto'); //Código de Protesto do Boleto - 1 Protestar Dias Corridos - 2 Protestar Dias Úteis - 3 Não Protestar
+      $table->integer('codigoProtesto')->nullable(); //Código de Protesto do Boleto - 1 Protestar Dias Corridos - 2 Protestar Dias Úteis - 3 Não Protestar
       $table->integer('numeroDiasProtesto')->nullable(); //Número de Dias para Protesto do Boleto
       $table->integer('quantidadeDiasFloat')->nullable(); //Quantidade de Dias de Float.
 
@@ -80,6 +83,7 @@ class CreateSicoobBoletosTable extends Migration
       // rateioCreditos
       $table->text('qrCode')->nullable(); //Descreve a Situação atual do Boleto - Em Aberto - Baixado - Liquidado
 
+      $table->timestamps();
     });
   }
 
@@ -90,6 +94,6 @@ class CreateSicoobBoletosTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('boletos_sicoob');
+    Schema::dropIfExists('sicoob_boletos');
   }
 }

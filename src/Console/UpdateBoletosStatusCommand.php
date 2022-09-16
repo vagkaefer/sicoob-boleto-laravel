@@ -1,6 +1,6 @@
 <?php
 
-namespace VagKaefer\SicoobBoleto\Console;
+namespace VagKaefer\Sicoob\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;

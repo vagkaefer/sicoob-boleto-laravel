@@ -1,12 +1,12 @@
 <?php
 
-namespace VagKaefer\SicoobBoleto;
+namespace VagKaefer\Sicoob;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Cache;
 
-class SicoobBoleto
+class Boleto
 {
     protected $token;
     protected $numeroContrato;
@@ -126,7 +126,8 @@ class SicoobBoleto
             ]
         );
 
-        return json_decode($response->getBody(), true);
+        $json = json_decode($response->getBody(), true);
+        return (object)$json['resultado'];
     }
 
     public function translate_especieDocumento($especieDocumento)

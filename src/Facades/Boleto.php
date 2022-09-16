@@ -1,13 +1,13 @@
 <?php
 
-namespace VagKaefer\SicoobBoleto\Facades;
+namespace VagKaefer\Sicoob\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class SicoobBoleto extends Facade
+class Boleto extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'sicoob-boleto';
+        return 'boleto';
     }
 }

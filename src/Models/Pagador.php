@@ -1,6 +1,6 @@
 <?php
 
-namespace VagKaefer\SicoobBoleto\Models;
+namespace VagKaefer\Sicoob\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

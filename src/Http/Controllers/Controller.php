@@ -1,6 +1,6 @@
 <?php
 
-namespace VagKaefer\SicoobBoleto\Http\Controllers;
+namespace VagKaefer\Sicoob\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
